@@ -18,7 +18,7 @@ export const getEmployee = async (req, res) => {
     if (rows.length <= 0) {
       res.status(400).json({ message: "Employee not found" });
     }
-    res.json(rows[0]);
+    res.status(200).json(rows[0]);
   } catch (error) {
     console.log(error);
     res.send(error);
@@ -32,7 +32,7 @@ export const createEmployee = async (req, res) => {
       "INSERT INTO employee (name, salary ) VALUES( ?, ? )",
       [name, salary]
     );
-    res.send({
+    res.status(201).send({
       id: rows.insertId,
       name,
       salary,

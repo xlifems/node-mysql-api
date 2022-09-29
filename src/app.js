@@ -7,8 +7,8 @@ app.use(express.json())
 
 app.use('/api',employeesRoutes)
 app.use( (req, res, next) => {
-  res.status(400).json({
-    message: 'Endpoint not found'
+  res.status(200).json({
+    message: 'welcome to my api'
   })
 })
 
