@@ -1,10 +1,10 @@
-docker run -it --name express-mysql -p 3306:3306 -e MYSQL_ROOT_PASSWORD=famp52845 -d mysql
+docker run -it --name express-mysql -p 3306:3306 -e MYSQL_ROOT_PASSWORD=root -d mysql
 9dbd5716a9f352568b4789e0fe2d9e2a87431ed859ba4127bd5a63c7f2ca55b6
 
 ┌─[ felix ╼ Arcris ]─[05:23 PM]─[~] 
 └──╼ $ docker exec -it 9db /bin/bash
 
-bash-4.4# mysql -u root -pfamp52845
+bash-4.4# mysql -u root -proot
 mysql: [Warning] Using a password on the command line interface can be insecure.
 Welcome to the MySQL monitor.  Commands end with ; or \g.
 Your MySQL connection id is 8
