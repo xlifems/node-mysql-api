@@ -38,9 +38,10 @@ export const createStudent = async (req, res) => {
       gender,
     } = req.body;
 
+    console.log(req.body);
     // const [rows] = await pool.query('INSERT INTO students SET ?', { school_id, first_name, last_name, email, phone, address, date_of_birth, gender });
     const [rows] = await pool.query(
-      "INSERT INTO students ( school_id, first_name, last_name, email, phone, address, date_of_birth, gender ) VALUES( ?, ?, ?, ?,?, ?,?, ? )",
+      "INSERT INTO student ( school_id, first_name, last_name, email, phone, address, date_of_birth, gender ) VALUES( ?, ?, ?, ?,?, ?,?, ? )",
       [
         school_id,
         first_name,
@@ -56,7 +57,13 @@ export const createStudent = async (req, res) => {
     res.status(201).send({
       id: rows.insertId,
       first_name,
-      salary,
+      first_name,
+      last_name,
+      email,
+      phone,
+      address,
+      date_of_birth,
+      gender,
     });
   } catch (error) {
     console.error(error);
