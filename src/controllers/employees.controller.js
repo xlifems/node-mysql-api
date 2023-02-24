@@ -27,14 +27,14 @@ export const getEmployee = async (req, res) => {
 
 export const createEmployee = async (req, res) => {
   try {
-    const { name, salary } = req.body;
+    const { first_name, salary } = req.body;
     const [rows] = await pool.query(
-      "INSERT INTO employee (name, salary ) VALUES( ?, ? )",
-      [name, salary]
+      "INSERT INTO employee (first_name, salary ) VALUES( ?, ? )",
+      [first_name, salary]
     );
     res.status(201).send({
       id: rows.insertId,
-      name,
+      first_name,
       salary,
     });
   } catch (error) {
@@ -45,12 +45,12 @@ export const createEmployee = async (req, res) => {
 
 export const updateEmployee = async (req, res) => {
   const { id } = req.params;
-  const { name, salary } = req.body;
+  const { first_name, salary } = req.body;
 
   try {
     const [result] = await pool.query(
-      "UPDATE employee SET name = IFNULL( ? , name), salary = IFNULL( ? , salary) WHERE id = ? ",
-      [name, salary, id]
+      "UPDATE employee SET first_name = IFNULL( ? , first_name), salary = IFNULL( ? , salary) WHERE id = ? ",
+      [first_name, salary, id]
     );
 
     if (result.affectedRows <= 0)
