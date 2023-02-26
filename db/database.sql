@@ -136,8 +136,26 @@ CREATE TABLE schooldb.matter (
   hours INT(11) NOT NULL,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   CONSTRAINT fk_page_book
-    FOREIGN KEY (book_id) REFERENCES schooldb.book(id),
+    FOREIGN KEY (book_id) REFERENCES schooldb.book(id)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
 );
+
+CREATE TABLE schooldb.page_matter (
+  page_id INT NOT NULL,
+  matter_id INT NOT NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (page_id, matter_id),
+  CONSTRAINT fk_page_matter_page
+    FOREIGN KEY (page_id) REFERENCES schooldb.page (id)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
+  CONSTRAINT fk_page_matter_matter
+    FOREIGN KEY (matter_id) REFERENCES schooldb.matter (id)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE
+);
+
 
 
 
