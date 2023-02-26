@@ -110,16 +110,35 @@ CREATE TABLE schooldb.book (
   id INT AUTO_INCREMENT PRIMARY KEY,
   name VARCHAR(255) NOT NULL,
   year INT(11) NOT NULL,
+  type ENUM('qualitative', 'quantitative', 'both'),
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (school_id) REFERENCES schooldb.school(id)
 );
 
-CREATE TABLE schooldb.certificate (
+
+CREATE TABLE schooldb.page (
   id INT AUTO_INCREMENT PRIMARY KEY (id),
-  name VARCHAR(255) NOT NULL,
-  year INT(11) NOT NULL,
+  book_id INT(11) NOT NULL,
+  student_id INT(11) NOT NULL,
+  status VARCHAR(100) NOT NULL,
+  observation TEXT,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  FOREIGN KEY (book_id) REFERENCES schooldb.book (id)
+  CONSTRAINT fk_page_book
+    FOREIGN KEY (book_id) REFERENCES schooldb.book (id),
+  CONSTRAINT fk_page_student
+    FOREIGN KEY (student_id) REFERENCES schooldb.student(id)
 );
+
+CREATE TABLE schooldb.matter (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  book_id INT(11) NOT NULL,
+  name VARCHAR(255) NOT NULL,
+  hours INT(11) NOT NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  CONSTRAINT fk_page_book
+    FOREIGN KEY (book_id) REFERENCES schooldb.book(id),
+);
+
 
 
 
