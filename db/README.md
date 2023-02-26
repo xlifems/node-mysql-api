@@ -7,3 +7,4 @@ docker run -it --name express-mysql -p 3306:3306 -e MYSQL_ROOT_PASSWORD=root -d 
 # enter in current container
 └──╼ $ docker exec -it 9db /bin/bash
 
+mysql -u root -proot

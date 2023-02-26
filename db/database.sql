@@ -42,6 +42,87 @@ CREATE TABLE schooldb.employee (
   FOREIGN KEY (school_id) REFERENCES schooldb.school(id)
 );
 
+CREATE TABLE schooldb.course (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  name VARCHAR(255) NOT NULL,
+  school_id INT NOT NULL,
+  PRIMARY KEY (id),
+  CONSTRAINT fk_course_school
+    FOREIGN KEY (school_id)
+    REFERENCES schooldb.school (id)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE
+);
+
+CREATE TABLE schooldb.professor (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  school_id INT(11) NOT NULL,
+  course_id INT NOT NULL,
+  first_name VARCHAR(50) NOT NULL,
+  last_name VARCHAR(50) NOT NULL,
+  email VARCHAR(100) NOT NULL,
+  phone VARCHAR(20),
+  address VARCHAR(255),
+  hire_date DATE,
+  job_title VARCHAR(100),  
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (id),
+  CONSTRAINT fk_professor_course
+    FOREIGN KEY (school_id) REFERENCES schooldb.school(id)   
+    ON DELETE CASCADE
+    ON UPDATE CASCADE
+);
+
+CREATE TABLE schooldb.course_professor (
+  course_id INT NOT NULL,
+  professor_id INT NOT NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (course_id, professor_id),
+  CONSTRAINT fk_course_professor_course
+    FOREIGN KEY (course_id) REFERENCES schooldb.course (id)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
+  CONSTRAINT fk_course_professor_professor
+    FOREIGN KEY (professor_id) REFERENCES schooldb.professor (id)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE
+);
+
+
+CREATE TABLE schooldb.subject (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  name VARCHAR(255) NOT NULL,
+  hours INT(1) NOT NULL,
+  course_id INT NOT NULL,
+  professor_id INT NOT NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  CONSTRAINT fk_subject_course
+    FOREIGN KEY (course_id) REFERENCES schooldb.course (id)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
+  CONSTRAINT fk_subject_professor
+    FOREIGN KEY (professor_id) REFERENCES schooldb.professor (id)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE
+);
+
+CREATE TABLE schooldb.book (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  name VARCHAR(255) NOT NULL,
+  year INT(11) NOT NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+);
+
+CREATE TABLE schooldb.certificate (
+  id INT AUTO_INCREMENT PRIMARY KEY (id),
+  name VARCHAR(255) NOT NULL,
+  year INT(11) NOT NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (book_id) REFERENCES schooldb.book (id)
+);
+
+
+
 -- Insert data into the school table
 INSERT INTO schooldb.school (name, address, phone)
 VALUES ('XYZ High School', '123 Main St.', '555-1234');
