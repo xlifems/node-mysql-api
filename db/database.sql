@@ -23,7 +23,11 @@ CREATE TABLE schooldb.student (
   gender ENUM('male', 'female', 'other'),
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (id),
-  FOREIGN KEY (school_id) REFERENCES schooldb.school(id)
+  CONSTRAINT fk_student_school
+    FOREIGN KEY (school_id) REFERENCES schooldb.school(id)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE
+
 );
 
 CREATE TABLE schooldb.employee (
@@ -39,7 +43,10 @@ CREATE TABLE schooldb.employee (
   salary DECIMAL(10,2),
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (id),
-  FOREIGN KEY (school_id) REFERENCES schooldb.school(id)
+  CONSTRAINT fk_employee_school
+    FOREIGN KEY (school_id) REFERENCES schooldb.school(id)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE
 );
 
 CREATE TABLE schooldb.course (
@@ -102,6 +109,18 @@ CREATE TABLE schooldb.subject (
     ON UPDATE CASCADE,
   CONSTRAINT fk_subject_professor
     FOREIGN KEY (professor_id) REFERENCES schooldb.professor (id)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE
+);
+
+CREATE TABLE note (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  title VARCHAR(255) NOT NULL,
+  body TEXT NOT NULL,
+  subject_id INT NOT NULL,
+  CONSTRAINT fk_note_subject
+    FOREIGN KEY (subject_id)
+    REFERENCES subject (id)
     ON DELETE CASCADE
     ON UPDATE CASCADE
 );
@@ -203,6 +222,14 @@ DESCRIBE employee;
 SELECT s.id, s.first_name, s.last_name, s.email, s.phone, s.address, s.date_of_birth, s.gender, sch.name as school_name, sch.address as school_address, sch.phone as school_phone
 FROM schooldb.student s
 INNER JOIN schooldb.school sch ON s.school_id = sch.id;
+
+SELECT n.title, n.body
+FROM note n
+JOIN subject s ON n.subject_id = s.id
+JOIN course c ON s.course_id = c.id
+JOIN student st ON c.school_id = st.school_id
+WHERE st.id = 1;
+
 
 SELECT pgm.id, s.id, s.first_name, s.last_name, pg.status, pgm.quantitative_note as note , mt.name, mt.hours, bk.year, bk.name
 FROM schooldb.student s

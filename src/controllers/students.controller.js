@@ -90,7 +90,17 @@ export const updateStudent = async (req, res) => {
        email = IFNULL( ? , email), phone = IFNULL( ? , phone),address = IFNULL( ? , address), 
        date_of_birth = IFNULL( ? , date_of_birth), gender = IFNULL( ? , gender)
        WHERE id = ?`,
-      [school_id, first_name, last_name, email, phone, address, date_of_birth, gender, id]
+      [
+        school_id,
+        first_name,
+        last_name,
+        email,
+        phone,
+        address,
+        date_of_birth,
+        gender,
+        id,
+      ]
     );
 
     if (result.affectedRows <= 0)

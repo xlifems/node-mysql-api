@@ -3,11 +3,11 @@ version: '3.8'
 services:
   db:
     image: mysql
-    container_name: companydb
+    container_name: schooldb
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: companydb
+      MYSQL_DATABASE: schooldb
       MYSQL_USER: root
       MYSQL_PASSWORD: root
     ports:

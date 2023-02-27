@@ -1,6 +1,7 @@
 import express from "express";
 import employeesRoutes from "./routes/employees.routes.js";
 import studentsRoutes from "./routes/students.routes.js";
+import certificatesRoutes from "./routes/certificates.routes.js";
 
 const app = express();
 
@@ -20,6 +21,7 @@ app.use((req, res, next) => {
 // Import routes modules
 app.use("/api", employeesRoutes);
 app.use("/api", studentsRoutes);
+app.use("/api", certificatesRoutes);
 
 app.use((req, res, next) => {
   res.status(200).json({
