@@ -6,7 +6,14 @@ CREATE TABLE schooldb.school (
   id INT(11) NOT NULL AUTO_INCREMENT,
   name VARCHAR(255) NOT NULL,
   address VARCHAR(255) NOT NULL,
+  department VARCHAR(20) NOT NULL,
+  city VARCHAR(20) NOT NULL,
   phone VARCHAR(20),
+  email VARCHAR(100) NOT NULL,
+  shield VARCHAR(255),
+  dane_code VARCHAR(255) NOT NULL,
+  nit VARCHAR(255) NOT NULL,
+  resolution VARCHAR(255) NOT NULL,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (id)
 );
@@ -27,7 +34,6 @@ CREATE TABLE schooldb.student (
     FOREIGN KEY (school_id) REFERENCES schooldb.school(id)
     ON DELETE CASCADE
     ON UPDATE CASCADE
-
 );
 
 CREATE TABLE schooldb.employee (
