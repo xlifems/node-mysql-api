@@ -38,7 +38,6 @@ export const createStudent = async (req, res) => {
       gender,
     } = req.body;
 
-    console.log(req.body);
     // const [rows] = await pool.query('INSERT INTO students SET ?', { school_id, first_name, last_name, email, phone, address, date_of_birth, gender });
     const [rows] = await pool.query(
       "INSERT INTO student ( school_id, first_name, last_name, email, phone, address, date_of_birth, gender ) VALUES( ?, ?, ?, ?,?, ?,?, ? )",
@@ -73,12 +72,25 @@ export const createStudent = async (req, res) => {
 
 export const updateStudent = async (req, res) => {
   const { id } = req.params;
-  const { first_name, salary } = req.body;
+  const {
+    school_id,
+    first_name,
+    last_name,
+    email,
+    phone,
+    address,
+    date_of_birth,
+    gender,
+  } = req.body;
 
   try {
     const [result] = await pool.query(
-      "UPDATE student SET first_name = IFNULL( ? , first_name), salary = IFNULL( ? , salary) WHERE id = ? ",
-      [first_name, salary, id]
+      `UPDATE student 
+       SET school_id = IFNULL( ? , school_id), first_name = IFNULL( ? , first_name), last_name = IFNULL( ? , last_name), 
+       email = IFNULL( ? , email), phone = IFNULL( ? , phone),address = IFNULL( ? , address), 
+       date_of_birth = IFNULL( ? , date_of_birth), gender = IFNULL( ? , gender)
+       WHERE id = ?`,
+      [school_id, first_name, last_name, email, phone, address, date_of_birth, gender, id]
     );
 
     if (result.affectedRows <= 0)

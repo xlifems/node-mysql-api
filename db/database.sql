@@ -108,6 +108,7 @@ CREATE TABLE schooldb.subject (
 
 CREATE TABLE schooldb.book (
   id INT AUTO_INCREMENT PRIMARY KEY,
+  school_id INT(11) NOT NULL,
   name VARCHAR(255) NOT NULL,
   year INT(11) NOT NULL,
   type ENUM('qualitative', 'quantitative', 'both'),
@@ -117,7 +118,7 @@ CREATE TABLE schooldb.book (
 
 
 CREATE TABLE schooldb.page (
-  id INT AUTO_INCREMENT PRIMARY KEY (id),
+  id INT AUTO_INCREMENT PRIMARY KEY,
   book_id INT(11) NOT NULL,
   student_id INT(11) NOT NULL,
   status VARCHAR(100) NOT NULL,
@@ -135,17 +136,19 @@ CREATE TABLE schooldb.matter (
   name VARCHAR(255) NOT NULL,
   hours INT(11) NOT NULL,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  CONSTRAINT fk_page_book
+  CONSTRAINT fk_matter_book
     FOREIGN KEY (book_id) REFERENCES schooldb.book(id)
     ON DELETE CASCADE
-    ON UPDATE CASCADE,
+    ON UPDATE CASCADE
 );
 
 CREATE TABLE schooldb.page_matter (
+  id INT AUTO_INCREMENT PRIMARY KEY,
   page_id INT NOT NULL,
   matter_id INT NOT NULL,
-  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (page_id, matter_id),
+  qualitative_note VARCHAR(255),
+  quantitative_note DOUBLE, 
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,  
   CONSTRAINT fk_page_matter_page
     FOREIGN KEY (page_id) REFERENCES schooldb.page (id)
     ON DELETE CASCADE
@@ -156,7 +159,7 @@ CREATE TABLE schooldb.page_matter (
     ON UPDATE CASCADE
 );
 
-
+ALTER TABLE page_matter MODIFY quantitative_note DOUBLE; 
 
 
 
@@ -174,6 +177,24 @@ INSERT INTO schooldb.employee (school_id, first_name, last_name, email, phone, a
 VALUES (1, 'Bob', 'Jones', 'bjones@example.com', '555-7777', '321 Pine St.', '2020-01-01', 'Teacher', 50000.00),
        (1, 'Alice', 'Johnson', 'ajohnson@example.com', '555-8888', '654 Maple St.', '2019-01-01', 'Principal', 75000.00);
 
+-- Insert data into the book table
+INSERT INTO schooldb.book (school_id, name, year, type)
+VALUES (1, 'SEXTO A', 2012, 'quantitative'), (1, 'SEXTO B', 2012, 'quantitative');
+
+-- Insert data into the matter table
+INSERT INTO schooldb.matter (book_id, name, hours)
+VALUES (1, 'MATEMATICAS', 4), (1, 'LENGUA CASTELLANA', 6);
+
+-- Insert data into the page table
+INSERT INTO schooldb.page (book_id, student_id,  status, observation)
+VALUES (1, 3, 'APROBO', "nivel alto");
+
+-- Insert data into the page_matter table
+INSERT INTO schooldb.page_matter (page_id, matter_id, qualitative_note, quantitative_note)
+VALUES (1, 1, '', 10.0 ), (1, 2, '', 9.8 );
+
+
+
 DESCRIBE school;
 DESCRIBE student;
 DESCRIBE employee;
@@ -182,3 +203,12 @@ DESCRIBE employee;
 SELECT s.id, s.first_name, s.last_name, s.email, s.phone, s.address, s.date_of_birth, s.gender, sch.name as school_name, sch.address as school_address, sch.phone as school_phone
 FROM schooldb.student s
 INNER JOIN schooldb.school sch ON s.school_id = sch.id;
+
+SELECT pgm.id, s.id, s.first_name, s.last_name, pg.status, pgm.quantitative_note as note , mt.name, mt.hours, bk.year, bk.name
+FROM schooldb.student s
+INNER JOIN schooldb.school sc ON s.school_id = sc.id
+INNER JOIN schooldb.book bk ON sc.id = bk.school_id
+INNER JOIN schooldb.page pg ON s.id = pg.student_id
+INNER JOIN schooldb.matter mt ON mt.book_id = bk.id
+INNER JOIN schooldb.page_matter pgm ON pgm.matter_id = mt.id
+WHERE s.id = 3;

@@ -5,16 +5,31 @@ GET http://localhost:3000/api/employees
 GET http://localhost:3000/api/students
 
 ###
-POST  http://localhost:3000/api/students
+POST   http://localhost:3000/api/students
 content-type: application/json
 
 {
     "school_id": 1,
     "first_name": "Etham",
-    "last_name": "Massa",
-    "email": "ethammassa@example.com",
+    "last_name": "Masa",
+    "email": "ethammasa@example.com",
     "phone": "555-8866",
     "address": "759 Oak St.",
     "date_of_birth": "2000-12-17",
-    "gender": "female"
+    "gender": "male"
+}
+
+###
+PATCH  http://localhost:3000/api/students/3
+content-type: application/json
+
+{
+    "school_id": 1,
+    "first_name": "Etham",
+    "last_name": "Masa",
+    "email": "ethammasa@example.com",
+    "phone": "555-8866",
+    "address": "759 Oak St.",
+    "date_of_birth": "2000-12-17",
+    "gender": "male"
 }
