@@ -115,6 +115,7 @@ export const updateStudent = async (req, res) => {
     res.send(error);
   }
 };
+
 export const deleteStudent = async (req, res) => {
   try {
     const [result] = await pool.query("DELETE FROM student WHERE id = ? ", [
@@ -129,3 +130,4 @@ export const deleteStudent = async (req, res) => {
     res.send(error);
   }
 };
+
