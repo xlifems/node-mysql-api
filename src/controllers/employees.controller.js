@@ -5,8 +5,8 @@ export const getEmployees = async (req, res) => {
     const [rows] = await pool.query("SELECT * FROM employee");
     res.json(rows);
   } catch (error) {
-    console.log(error);
-    res.send(error);
+    console.error(error);
+    res.status(500).json({ message: error });
   }
 };
 
@@ -20,8 +20,8 @@ export const getEmployee = async (req, res) => {
     }
     res.status(200).json(rows[0]);
   } catch (error) {
-    console.log(error);
-    res.send(error);
+    console.error(error);
+    res.status(500).json({ message: error });
   }
 };
 
