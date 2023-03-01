@@ -5,19 +5,28 @@ GET http://localhost:3000/api/employees
 GET http://localhost:3000/api/students
 
 ###
-POST  http://localhost:3000/api/users
+POST http://localhost:3000/api/users
 content-type: application/json
 
 {
     "school_id": 1,
-    "first_name": "John",
-    "last_name": "Doe",
-    "email": "johndoe@example.com",
+    "first_name": "Felix Adrian",
+    "last_name": "Masa Pico",
+    "email": "adrianmasapico@gmail.com",
     "password": "password123",
-    "phone": "+573013214532",
-    "address": "123 Main St",
+    "phone": "+573013171902",
+    "address": "Cl 70 Itagui",
     "role": "admin"
   }
+
+###
+POST http://localhost:3000/api/users/login
+content-type: application/json
+
+{
+    "email": "adrianmasapico@gmail.com",
+    "password": "password123"
+}
 
 ###
 POST   http://localhost:3000/api/students
@@ -35,7 +44,7 @@ content-type: application/json
 }
 
 ###
-PATCH  http://localhost:3000/api/students/3
+PATCH  http://localhost:3000/api/students/4
 content-type: application/json
 
 {
