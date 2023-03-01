@@ -74,9 +74,9 @@ export const login = async (req, res) => {
       return;
     }
 
-    const valid = await validatePassword(password, rows[0].password);
+    const isValid = await validatePassword(password, rows[0].password);
 
-    if (valid) {
+    if (isValid) {
       // Create new resData object without password property
       const { password, ...resData } = rows[0];
       res.status(200).send({ status: 200, data: resData }).end();
