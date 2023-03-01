@@ -6,9 +6,8 @@ admin.initializeApp({
 });
 
 export const createUser = async (req, res) => {
-  admin
-    .auth()
-    .createUser({
+  try {
+    const userRecord = await admin.auth().createUser({
       email: "user@example.com",
       emailVerified: false,
       phoneNumber: "+11234567890",
@@ -16,15 +15,16 @@ export const createUser = async (req, res) => {
       displayName: "John Doe",
       photoURL: "http://www.example.com/12345678/photo.png",
       disabled: false,
-    })
-    .then((userRecord) => {
-      // See the UserRecord reference doc for the contents of userRecord.
-      console.log("Successfully created new user:", userRecord.uid);
-      res.send(userRecord);
-    })
-    .catch((error) => {
-      console.log("Error creating new user:", error);
     });
+    // See the UserRecord reference doc for the contents of userRecord.
+    console.log("Successfully created new user:", userRecord.uid);
+    const { providerData, metadata, tokensValidAfterTime, ...restUserRecord } =
+      userRecord.toJSON();
+    res.status(201).json(restUserRecord);
+  } catch (error) {
+    console.log("Error creating new user:", error);
+    res.status(500).json({ error });
+  }
 };
 
 export const getUser = async (req, res) => {

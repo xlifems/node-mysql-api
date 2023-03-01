@@ -26,8 +26,11 @@ CREATE TABLE schooldb.student (
   email VARCHAR(100) NOT NULL,
   phone VARCHAR(20),
   address VARCHAR(255),
+  document_type ENUM('rc', 'ti', 'cc'),
+  document VARCHAR(255),
   date_of_birth DATE,
   gender ENUM('male', 'female', 'other'),
+  photo_url VARCHAR(255),
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (id),
   CONSTRAINT fk_student_school
@@ -50,6 +53,24 @@ CREATE TABLE schooldb.employee (
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (id),
   CONSTRAINT fk_employee_school
+    FOREIGN KEY (school_id) REFERENCES schooldb.school(id)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE
+);
+
+CREATE TABLE schooldb.user (
+  id INT(11) NOT NULL AUTO_INCREMENT,
+  school_id INT(11) NOT NULL,
+  first_name VARCHAR(50) NOT NULL,
+  last_name VARCHAR(50) NOT NULL,
+  email VARCHAR(100) NOT NULL,
+  password VARCHAR(255) NOT NULL,
+  phone VARCHAR(20),
+  address VARCHAR(255),
+  role ENUM('admin', 'typist', 'institution'), 
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (id),
+  CONSTRAINT fk_user_school
     FOREIGN KEY (school_id) REFERENCES schooldb.school(id)
     ON DELETE CASCADE
     ON UPDATE CASCADE
