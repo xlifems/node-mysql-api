@@ -6,6 +6,18 @@ GET http://localhost:3000/api/students
 
 ###
 POST  http://localhost:3000/api/users
+content-type: application/json
+
+{
+    "school_id": 1,
+    "first_name": "John",
+    "last_name": "Doe",
+    "email": "johndoe@example.com",
+    "password": "password123",
+    "phone": "+573013214532",
+    "address": "123 Main St",
+    "role": "admin"
+  }
 
 ###
 POST   http://localhost:3000/api/students

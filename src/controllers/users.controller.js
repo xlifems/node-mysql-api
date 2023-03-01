@@ -1,35 +1,37 @@
-import admin from "firebase-admin";
-import serviceAccount from "../../flibdig-2-firebase-adminsdk-ak1wj-7e8c342041.js";
-
-admin.initializeApp({
-  credential: admin.credential.cert(serviceAccount),
-});
+import { pool, firebaseAdmin } from "../db.js";
 
 export const createUser = async (req, res) => {
+  const newUser = req.body;
+  // Create a new firebase user object
+  const firebaseUser = {
+    email: newUser.email,
+    emailVerified: false,
+    phoneNumber: newUser.phone,
+    password: newUser.password,
+    displayName: newUser.first_name + " " + newUser.last_name,
+    photoURL: "http://www.example.com/12345678/photo.png",
+    disabled: false,
+  };
+
   try {
-    const userRecord = await admin.auth().createUser({
-      email: "user@example.com",
-      emailVerified: false,
-      phoneNumber: "+11234567890",
-      password: "secretPassword",
-      displayName: "John Doe",
-      photoURL: "http://www.example.com/12345678/photo.png",
-      disabled: false,
+    const userRecord = await firebaseAdmin.auth().createUser(firebaseUser);
+    const [rows] = await pool.query("INSERT INTO user SET ?", {
+      ...newUser,
+      uid: userRecord.uid,
     });
-    // See the UserRecord reference doc for the contents of userRecord.
-    console.log("Successfully created new user:", userRecord.uid);
-    const { providerData, metadata, tokensValidAfterTime, ...restUserRecord } =
-      userRecord.toJSON();
-    res.status(201).json(restUserRecord);
+    console.log("User added successfully", rows.insertId);
+
+    res.status(201).json({ id: rows.insertId });
   } catch (error) {
-    console.log("Error creating new user:", error);
     res.status(500).json({ error });
   }
 };
 
 export const getUser = async (req, res) => {
   try {
-    const userRecord = await admin.auth().getUserByEmail("user@example.com");
+    const userRecord = await firebaseAdmin
+      .auth()
+      .getUserByEmail("user@example.com");
     const { providerData, metadata, tokensValidAfterTime, ...restUserRecord } =
       userRecord.toJSON();
 

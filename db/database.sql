@@ -67,7 +67,8 @@ CREATE TABLE schooldb.user (
   password VARCHAR(255) NOT NULL,
   phone VARCHAR(20),
   address VARCHAR(255),
-  role ENUM('admin', 'typist', 'institution'), 
+  role ENUM('admin', 'typist', 'institution'),
+  uid VARCHAR(50) NOT NULL UNIQUE;
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (id),
   CONSTRAINT fk_user_school
@@ -238,6 +239,10 @@ VALUES (1, 3, 'APROBO', "nivel alto");
 -- Insert data into the page_matter table
 INSERT INTO schooldb.page_matter (page_id, matter_id, qualitative_note, quantitative_note)
 VALUES (1, 1, '', 10.0 ), (1, 2, '', 9.8 );
+
+INSERT INTO users (school_id, first_name, last_name, email, password, phone, address, role)
+VALUES (1, 'John', 'Doe', 'johndoe@example.com', 'password123', '555-1234', '123 Main St', 'admin');
+
 
 
 

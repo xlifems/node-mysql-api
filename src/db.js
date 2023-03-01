@@ -1,8 +1,6 @@
 import { createPool } from "mysql2/promise";
-// Import the functions you need from the SDKs you need
-import { initializeApp } from "firebase/app";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
+import admin from "firebase-admin";
+import serviceAccount from "../flibdig-2-firebase-adminsdk-ak1wj-7e8c342041.js";
 
 import {
   DB_DATABASE,
@@ -20,3 +18,6 @@ export const pool = createPool({
   database: DB_DATABASE,
 });
 
+export const firebaseAdmin = admin.initializeApp({
+  credential: admin.credential.cert(serviceAccount),
+});
