@@ -8,6 +8,7 @@ import {
   DB_PASSWORD,
   DB_PORT,
   DB_USER,
+  GOOGLE_APPLICATION_CREDENTIALS,
 } from "../config.js";
 
 export const pool = createPool({
