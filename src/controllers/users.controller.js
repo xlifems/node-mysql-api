@@ -87,6 +87,8 @@ export const login = async (req, res) => {
       const options = { expiresIn: "1h" };
       const token = jwt.sign(payload, secretKey, options);
 
+      
+
       res
         .status(200)
         .send({ status: 200, data: { ...resData, token } })

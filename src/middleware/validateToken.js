@@ -12,14 +12,10 @@ export const verifyToken = (req, res, next) => {
   }
   try {
     const secretKey = "mysecretkey";
-    jwt.verify(token, secretKey, (err, decoded) => {
-      if (err) {
-        return res.status(401).json(err);
-      } else {
-        console.log(decoded);
-        next();
-      }
-    });
+    const decode = jwt.verify(token, secretKey);
+    console.log("🚀 ~ file: users.controller.js:91 ~ login ~ decode:", decode);
+
+    next();
   } catch (err) {
     return res.status(401).json(err);
   }
