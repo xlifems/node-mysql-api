@@ -1,7 +1,8 @@
-const jwt = require("jsonwebtoken");
-const config = require("../config");
+import jwt from "jsonwebtoken";
+//const config = require("../../config.js");
 
-function validateToken(req, res, next) {
+// Verify a JWT token with a secret key
+export const verifyToken = (req, res, next) => {
   const token = req.headers["x-access-token"];
   if (!token) {
     return res.status(401).json({
@@ -10,12 +11,16 @@ function validateToken(req, res, next) {
     });
   }
   try {
-    const decode = jwt.verify(token, config.secret);
-    req.userCedula = decode.cedula;
-    next();
+    const secretKey = "mysecretkey";
+    jwt.verify(token, secretKey, (err, decoded) => {
+      if (err) {
+        return res.status(401).json(err);
+      } else {
+        console.log(decoded);
+        next();
+      }
+    });
   } catch (err) {
     return res.status(401).json(err);
   }
-}
-
-module.exports = validateToken;
+};

@@ -1,5 +1,6 @@
 import { pool, firebaseAdmin } from "../db.js";
 import bcrypt from "bcryptjs";
+import jwt from "jsonwebtoken";
 
 const encodePassword = async (password) => {
   const salt = await bcrypt.genSalt(10);
@@ -79,7 +80,17 @@ export const login = async (req, res) => {
     if (isValid) {
       // Create new resData object without password property
       const { password, ...resData } = rows[0];
-      res.status(200).send({ status: 200, data: resData }).end();
+
+      // Create a JWT token with a payload and secret key
+      const payload = { ...resData };
+      const secretKey = "mysecretkey";
+      const options = { expiresIn: "1h" };
+      const token = jwt.sign(payload, secretKey, options);
+
+      res
+        .status(200)
+        .send({ status: 200, data: { ...resData, token } })
+        .end();
     } else {
       res
         .status(404)

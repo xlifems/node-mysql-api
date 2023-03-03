@@ -20,5 +20,5 @@ export const pool = createPool({
 });
 
 export const firebaseAdmin = admin.initializeApp({
-  credential: admin.credential.cert(serviceAccount),
+  credential: admin.credential.cert(GOOGLE_APPLICATION_CREDENTIALS),
 });

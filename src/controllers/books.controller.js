@@ -26,7 +26,6 @@ export const getBook = async (req, res) => {
   }
 };
 
-//school_id, name, year, type
 export const createBook = async (req, res) => {
   try {
     const { school_id, name, year, type } = req.body;
