@@ -1,4 +1,5 @@
 import { pool, firebaseAdmin } from "../db.js";
+import { SECRET } from "../../config.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 
@@ -83,11 +84,8 @@ export const login = async (req, res) => {
 
       // Create a JWT token with a payload and secret key
       const payload = { ...resData };
-      const secretKey = "mysecretkey";
       const options = { expiresIn: "1h" };
-      const token = jwt.sign(payload, secretKey, options);
-
-      
+      const token = jwt.sign(payload, SECRET, options);
 
       res
         .status(200)

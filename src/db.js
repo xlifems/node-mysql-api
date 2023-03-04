@@ -1,7 +1,5 @@
 import { createPool } from "mysql2/promise";
 import admin from "firebase-admin";
-import serviceAccount from "../flibdig-2-firebase-adminsdk-ak1wj-7e8c342041.js";
-
 import {
   DB_DATABASE,
   DB_HOST,

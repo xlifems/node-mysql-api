@@ -6,11 +6,11 @@ import {
   getEmployees,
   updateEmployee,
 } from "../controllers/employees.controller.js";
-import { verifyToken } from "../middleware/validateToken.js";
+
 
 const router = Router();
 
-router.get("/employees", verifyToken, getEmployees);
+router.get("/employees", getEmployees);
 
 router.get("/employees/:id", getEmployee);
 
