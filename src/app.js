@@ -4,7 +4,7 @@ import studentsRoutes from "./routes/students.routes.js";
 import certificatesRoutes from "./routes/certificates.routes.js";
 import booksRoutes from "./routes/books.routes.js";
 import usersRoutes from "./routes/users.routes.js";
-import { verifyToken } from "./middleware/validateToken.js";
+import { jwtMiddleware } from "./middleware/validateToken.js";
 
 
 const app = express();
@@ -31,7 +31,7 @@ app.use("/api", usersRoutes);
 app.use("/api", studentsRoutes);
 app.use("/api", certificatesRoutes);
 app.use("/api", booksRoutes);
-app.use("/api", verifyToken, employeesRoutes);
+app.use("/api", jwtMiddleware, employeesRoutes);
 
 app.use((req, res, next) => {
   res.status(200).json({

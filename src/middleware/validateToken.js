@@ -2,19 +2,18 @@ import jwt from "jsonwebtoken";
 import { SECRET } from "../../config.js";
 
 // Verify a JWT token with a secret key
-export const verifyToken = (req, res, next) => {
-  const token = req.headers["x-access-token"]; 
-  if (!token) {
-    return res.status(401).json({
-      auth: false,
-      message: "Not token specified",
-    });
+export const jwtMiddleware = (req, res, next) => {
+  const authHeader = req.headers.authorization;
+  if (!authHeader || !authHeader.startsWith("Bearer ")) {
+    return res.status(401).json({ error: "Invalid authorization header" });
   }
-  try {
-    const verified = jwt.verify(token, SECRET);
-    req.uid = verified.uid
+
+  const token = authHeader.split(" ")[1];
+  jwt.verify(token, SECRET, (err, decoded) => {
+    if (err) {
+      return res.status(401).json({ error: "Invalid token" });
+    }
+    req.uid = decoded.uid;
     next();
-  } catch (err) {
-    return res.status(401).json(err);
-  }
+  });
 };

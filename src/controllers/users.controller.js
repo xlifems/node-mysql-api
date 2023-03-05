@@ -27,11 +27,10 @@ export const createUser = async (req, res) => {
   };
 
   try {
+    const userRecord = await firebaseAdmin.auth().createUser(firebaseUser);
     // Create encrypt password
     const bcryptPass = await encodePassword(newUser.password);
-    firebaseUser.password = bcryptPass;
     newUser.password = bcryptPass;
-    const userRecord = await firebaseAdmin.auth().createUser(firebaseUser);
     const [rows] = await pool.query("INSERT INTO user SET ?", {
       ...newUser,
       uid: userRecord.uid,
