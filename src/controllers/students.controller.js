@@ -34,13 +34,16 @@ export const createStudent = async (req, res) => {
       email,
       phone,
       address,
+      document_type,
+      document,
       date_of_birth,
       gender,
+      photo_url,
     } = req.body;
 
     // const [rows] = await pool.query('INSERT INTO students SET ?', { school_id, first_name, last_name, email, phone, address, date_of_birth, gender });
     const [rows] = await pool.query(
-      "INSERT INTO student ( school_id, first_name, last_name, email, phone, address, date_of_birth, gender ) VALUES( ?, ?, ?, ?,?, ?,?, ? )",
+      "INSERT INTO student (school_id,first_name,last_name,email,phone,address,document_type,document,date_of_birth,gender,photo_url) VALUES( ?, ?, ?, ?,?, ?,?, ?, ?, ?, ? )",
       [
         school_id,
         first_name,
@@ -48,21 +51,27 @@ export const createStudent = async (req, res) => {
         email,
         phone,
         address,
+        document_type,
+        document,
         date_of_birth,
         gender,
+        photo_url,
       ]
     );
 
     res.status(201).send({
       id: rows.insertId,
-      first_name,
+      school_id,
       first_name,
       last_name,
       email,
       phone,
       address,
+      document_type,
+      document,
       date_of_birth,
       gender,
+      photo_url,
     });
   } catch (error) {
     console.error(error);
@@ -130,4 +139,3 @@ export const deleteStudent = async (req, res) => {
     res.send(error);
   }
 };
-

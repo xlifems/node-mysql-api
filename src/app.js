@@ -4,6 +4,7 @@ import studentsRoutes from "./routes/students.routes.js";
 import certificatesRoutes from "./routes/certificates.routes.js";
 import booksRoutes from "./routes/books.routes.js";
 import usersRoutes from "./routes/users.routes.js";
+import schoolRoutes from "./routes/school.routes.js";
 import { jwtMiddleware } from "./middleware/validateToken.js";
 
 
@@ -31,6 +32,7 @@ app.use("/api", usersRoutes);
 app.use("/api", studentsRoutes);
 app.use("/api", certificatesRoutes);
 app.use("/api", booksRoutes);
+app.use("/api", schoolRoutes);
 app.use("/api", jwtMiddleware, employeesRoutes);
 
 app.use((req, res, next) => {

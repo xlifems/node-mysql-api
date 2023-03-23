@@ -68,7 +68,7 @@ CREATE TABLE schooldb.user (
   phone VARCHAR(20),
   address VARCHAR(255),
   role ENUM('admin', 'typist', 'institution'),
-  uid VARCHAR(50) NOT NULL UNIQUE;
+  uid VARCHAR(50) NOT NULL UNIQUE,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (id),
   CONSTRAINT fk_user_school
@@ -80,8 +80,7 @@ CREATE TABLE schooldb.user (
 CREATE TABLE schooldb.course (
   id INT AUTO_INCREMENT PRIMARY KEY,
   name VARCHAR(255) NOT NULL,
-  school_id INT NOT NULL,
-  PRIMARY KEY (id),
+  school_id INT NOT NULL, 
   CONSTRAINT fk_course_school
     FOREIGN KEY (school_id)
     REFERENCES schooldb.school (id)
@@ -101,7 +100,6 @@ CREATE TABLE schooldb.professor (
   hire_date DATE,
   job_title VARCHAR(100),  
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (id),
   CONSTRAINT fk_professor_course
     FOREIGN KEY (school_id) REFERENCES schooldb.school(id)   
     ON DELETE CASCADE
@@ -122,7 +120,6 @@ CREATE TABLE schooldb.course_professor (
     ON DELETE CASCADE
     ON UPDATE CASCADE
 );
-
 
 CREATE TABLE schooldb.subject (
   id INT AUTO_INCREMENT PRIMARY KEY,
