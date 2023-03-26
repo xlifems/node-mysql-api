@@ -85,7 +85,7 @@ POST  http://localhost:3000/api/books/matters
 content-type: application/json
 
 {
-    "rowsToInsert":[
+    "matters":[
       { "book_id": 1, "name": "Matematicas", "hours": 3 },
       { "book_id": 1, "name": "Espanol", "hours": 2 },
       { "book_id": 1, "name": "Sociales", "hours": 3 }

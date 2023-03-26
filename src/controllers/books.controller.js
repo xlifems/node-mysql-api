@@ -109,16 +109,10 @@ export const addMatter = async (req, res) => {
 
 export const addMatters = async (req, res) => {
   try {
-    const { rowsToInsert } = req.body;
-
-    /* const rowsToInsert = [
-      { book_id: 'value1', name: 'value2',  hours: 'value3' },
-      { book_id: 'value4', name: 'value5', hours: 'value6' },
-      { book_id: 'value7', name: 'value8', hours: 'value9' },
-    ]; */
-
-    const placeholders = rowsToInsert.map(() => "(?, ?, ?)").join(",");
-    const values = rowsToInsert.flatMap((row) => [
+    
+    const { matters } = req.body;
+    const placeholders = matters.map(() => "(?, ?, ?)").join(",");
+    const values = matters.flatMap((row) => [
       row.book_id,
       row.name,
       row.hours,
