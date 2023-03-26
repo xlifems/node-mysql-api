@@ -268,3 +268,8 @@ INNER JOIN schooldb.page pg ON s.id = pg.student_id
 INNER JOIN schooldb.matter mt ON mt.book_id = bk.id
 INNER JOIN schooldb.page_matter pgm ON pgm.matter_id = mt.id
 WHERE s.id = 3;
+
+
+SELECT *
+FROM school.book b
+INNER JOIN school.matter m ON b.id = m.book_id;

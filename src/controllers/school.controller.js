@@ -43,7 +43,7 @@ export const createSchool = async (req, res) => {
     // const [rows] = await pool.query('INSERT INTO schools SET ?', { school_id, first_name, last_name, email, phone, address, date_of_birth, gender });
     const [rows] = await pool.query(
       `INSERT INTO school ( name, address,department,city,phone,email,shield,dane_code,nit,resolution
-        ) VALUES( ?, ?, ?, ?,?, ?,?, ?, ?, ?, ? )`,
+        ) VALUES( ?, ?, ?, ?,?, ?,?, ?, ?, ?)`,
       [
         name,
         address,

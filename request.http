@@ -62,3 +62,32 @@ content-type: application/json
     "date_of_birth": "2000-12-17",
     "gender": "male"
 }
+###
+
+GET   http://localhost:3000/api/schools
+content-type: application/json
+
+{
+    "name" : "Institucion Educativa Lacides C. Bersal" ,
+    "address" : "Cl 12 # 15 - 24 Barrio Nuevo Oriente" ,
+    "department" : "Cordoba" ,
+    "city" : "Lorica" ,
+    "phone" : "666-8709" ,
+    "email" : "lacebe@gmail.com" ,
+    "shield" : "https://www.ielacides.master2000.net/img/escudo.png" ,
+    "dane_code" : "764432667843" ,
+    "nit" : "38543547-2" ,
+    "resolution" : "Resolcion 645 746 del 54 abril" 
+}
+###
+
+POST  http://localhost:3000/api/books/matters
+content-type: application/json
+
+{
+    "rowsToInsert":[
+      { "book_id": 1, "name": "Matematicas", "hours": 3 },
+      { "book_id": 1, "name": "Espanol", "hours": 2 },
+      { "book_id": 1, "name": "Sociales", "hours": 3 }
+    ]
+}

@@ -85,3 +85,55 @@ export const deleteBook = async (req, res) => {
     res.send(error);
   }
 };
+
+export const addMatter = async (req, res) => {
+  try {
+    const { book_id, name, hours } = req.body;
+
+    const [rows] = await pool.query(
+      "INSERT INTO matter ( book_id, name, hours ) VALUES ( ?, ?, ? )",
+      [book_id, name, hours]
+    );
+
+    res.status(201).send({
+      id: rows.insertId,
+      book_id,
+      name,
+      hours,
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error });
+  }
+};
+
+export const addMatters = async (req, res) => {
+  try {
+    const { rowsToInsert } = req.body;
+
+    /* const rowsToInsert = [
+      { book_id: 'value1', name: 'value2',  hours: 'value3' },
+      { book_id: 'value4', name: 'value5', hours: 'value6' },
+      { book_id: 'value7', name: 'value8', hours: 'value9' },
+    ]; */
+
+    const placeholders = rowsToInsert.map(() => "(?, ?, ?)").join(",");
+    const values = rowsToInsert.flatMap((row) => [
+      row.book_id,
+      row.name,
+      row.hours,
+    ]);
+
+    const [rows] = await pool.query(
+      "INSERT INTO matter ( book_id, name, hours ) VALUES " + placeholders,
+      values
+    );
+
+    res.status(201).send({
+      id: rows
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error });
+  }
+};
