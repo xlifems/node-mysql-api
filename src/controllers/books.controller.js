@@ -109,14 +109,9 @@ export const addMatter = async (req, res) => {
 
 export const addMatters = async (req, res) => {
   try {
-    
     const { matters } = req.body;
     const placeholders = matters.map(() => "(?, ?, ?)").join(",");
-    const values = matters.flatMap((row) => [
-      row.book_id,
-      row.name,
-      row.hours,
-    ]);
+    const values = matters.flatMap((row) => [row.book_id, row.name, row.hours]);
 
     const [rows] = await pool.query(
       "INSERT INTO matter ( book_id, name, hours ) VALUES " + placeholders,
@@ -124,7 +119,7 @@ export const addMatters = async (req, res) => {
     );
 
     res.status(201).send({
-      id: rows
+      data: rows,
     });
   } catch (error) {
     console.error(error);
