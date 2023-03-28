@@ -273,3 +273,9 @@ WHERE s.id = 3;
 SELECT *
 FROM school.book b
 INNER JOIN school.matter m ON b.id = m.book_id;
+
+
+SELECT * 
+FROM schooldb.book b 
+INNER JOIN schooldb.matter m ON b.id = m.book_id
+WHERE b.id = 1

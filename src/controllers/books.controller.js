@@ -126,3 +126,18 @@ export const addMatters = async (req, res) => {
     res.status(500).json({ error });
   }
 };
+export const getBookMatters = async (req, res) => {
+  try {
+    const [rows] = await pool.query(
+      "SELECT * FROM book b INNER JOIN matter m ON b.id = m.book_id WHERE b.id = ?",
+      [req.params.book_id]
+    );
+
+    res.status(201).send({
+      data: rows,
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error });
+  }
+};
