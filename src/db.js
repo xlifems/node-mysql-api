@@ -1,5 +1,8 @@
 import { createPool } from "mysql2/promise";
 import admin from "firebase-admin";
+// import JSON file with credentials
+// import serviceAccount from "../../flibdig-2-firebase-adminsdk-ak1wj-e54cae91ab.json" assert { type: "json" };
+
 import {
   DB_DATABASE,
   DB_HOST,

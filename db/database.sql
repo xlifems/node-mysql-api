@@ -207,9 +207,10 @@ ALTER TABLE page_matter MODIFY quantitative_note DOUBLE;
 
 
 
--- Insert data into the school table
-INSERT INTO schooldb.school (name, address, phone)
-VALUES ('XYZ High School', '123 Main St.', '555-1234');
+-- Insert data into the school table 
+INSERT INTO schooldb.school (name, address, department, city, phone, email, shield, dane_code, nit, resolution)
+VALUES ('Colegio San Juan', '123 Main St.', 'Antioquia', 'Medellin', '555-1234', 'sanjuan@sanjuan.com', 'shield.jpg', '123456', '123456789', '123456');
+
 
 -- Insert data into the students table
 INSERT INTO schooldb.student (school_id, first_name, last_name, email, phone, address, date_of_birth, gender)

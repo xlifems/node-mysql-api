@@ -6,7 +6,7 @@ Authorization:Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NSwic2Nob29sX2
 GET http://localhost:3000/api/students
 
 ###
-POST http://localhost:3000/api/users
+GET  http://localhost:3000/api/users
 content-type: application/json
 
 {
@@ -64,7 +64,7 @@ content-type: application/json
 }
 ###
 
-GET   http://localhost:3000/api/schools
+POST http://localhost:3000/api/schools
 content-type: application/json
 
 {

@@ -42,6 +42,21 @@ export const createUser = async (req, res) => {
   }
 };
 
+export const getUsers = async (req, res) => {
+  try {
+    const [rows] = await pool.query("SELECT * FROM user");
+
+    const users = rows.map((user) => {
+      const { password, ...restUser } = user;
+      return restUser;
+    });
+
+    res.status(200).json(users);
+  } catch (error) {
+    res.status(500).json({ error });
+  }
+};
+
 export const getUser = async (req, res) => {
   try {
     const userRecord = await firebaseAdmin
