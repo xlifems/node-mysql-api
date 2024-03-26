@@ -34,7 +34,7 @@ GET  http://localhost:3000/api/users/check
 Authorization:Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwic2Nob29sX2lkIjoxLCJmaXJzdF9uYW1lIjoiRmVsaXggQWRyaWFuIiwibGFzdF9uYW1lIjoiTWFzYSBQaWNvIiwiZW1haWwiOiJhZHJpYW5tYXNhcGljb0BnbWFpbC5jb20iLCJwaG9uZSI6Iis1NzMwMTMxNzE5MDIiLCJhZGRyZXNzIjoiQ2wgNzAgSXRhZ3VpIiwicm9sZSI6ImFkbWluIiwidWlkIjoiZTdsYkM5UmxtellwNXVHWlREWDBFQlE1UmxtMSIsImNyZWF0ZWRfYXQiOiIyMDI0LTAzLTI1VDIxOjE1OjE4LjAwMFoiLCJpYXQiOjE3MTE0Mjc3OTIsImV4cCI6MTcxMTQzMTM5Mn0.sGOyEunUfIlsPwLp9oDmuyJZoF6VjvjHtBHb2aW_ntU
 
 ###
-POST   http://localhost:3000/api/students
+GET    http://localhost:3000/api/students
 content-type: application/json
 
 {
@@ -107,11 +107,12 @@ content-type: application/json
 
 ###
 POST  http://localhost:3000/api/certificate
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwic2Nob29sX2lkIjoxLCJmaXJzdF9uYW1lIjoiRmVsaXggQWRyaWFuIiwibGFzdF9uYW1lIjoiTWFzYSBQaWNvIiwiZW1haWwiOiJhZHJpYW5tYXNhcGljb0BnbWFpbC5jb20iLCJwaG9uZSI6Iis1NzMwMTMxNzE5MDIiLCJhZGRyZXNzIjoiQ2wgNzAgSXRhZ3VpIiwicm9sZSI6ImFkbWluIiwidWlkIjoiZTdsYkM5UmxtellwNXVHWlREWDBFQlE1UmxtMSIsImNyZWF0ZWRfYXQiOiIyMDI0LTAzLTI1VDIxOjE1OjE4LjAwMFoiLCJpYXQiOjE3MTE0MjgwOTgsImV4cCI6MTcxMTQzMTY5OH0.zqd-tJ5HfHuZwQJ7n9ZBJ6gxtNhUj4ajt863TH1KFQM
- 
+content-type: application/json
+Authorization:Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwic2Nob29sX2lkIjoxLCJmaXJzdF9uYW1lIjoiRmVsaXggQWRyaWFuIiwibGFzdF9uYW1lIjoiTWFzYSBQaWNvIiwiZW1haWwiOiJhZHJpYW5tYXNhcGljb0BnbWFpbC5jb20iLCJwaG9uZSI6Iis1NzMwMTMxNzE5MDIiLCJhZGRyZXNzIjoiQ2wgNzAgSXRhZ3VpIiwicm9sZSI6ImFkbWluIiwidWlkIjoiZTdsYkM5UmxtellwNXVHWlREWDBFQlE1UmxtMSIsImNyZWF0ZWRfYXQiOiIyMDI0LTAzLTI1VDIxOjE1OjE4LjAwMFoiLCJpYXQiOjE3MTE0MjgwOTgsImV4cCI6MTcxMTQzMTY5OH0.zqd-tJ5HfHuZwQJ7n9ZBJ6gxtNhUj4ajt863TH1KFQM
+
 {
     "book_id": 1,
-    "student_id": 1,
+    "student_id": 2,
     "status": "APROBADO",
     "observation": "Falta de pago"
 }

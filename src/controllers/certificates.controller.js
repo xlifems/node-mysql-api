@@ -153,7 +153,7 @@ export const getBook = async (req, res) => {
 export const addPage = async (req, res) => {
   try {
     const { book_id, student_id, status, observation } = req.body;
-
+    console.log(book_id, student_id, status, observation); 
     const [rows] = await pool.query(
       "INSERT INTO page (book_id, student_id, status, observation) VALUES( ?, ?, ?, ? )",
       [book_id, student_id, status, observation]
