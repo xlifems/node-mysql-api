@@ -8,23 +8,26 @@ import schoolRoutes from "./routes/school.routes.js";
 import { jwtMiddleware } from "./middleware/validateToken.js";
 
 
+
+import cors from "cors";
+
 const app = express();
 
 // Add middleware
 app.use(express.json());
-app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header(
-    "Access-Control-Allow-Headers",
-    "Authorization, X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Allow-Request-Method, x-access-token"
-  );
-  res.header(
-    "Access-Control-Allow-Methods",
-    "GET, POST, OPTIONS, PUT, PATCH, DELETE"
-  );
-  res.header("Allow", "GET, POST, OPTIONS, PUT, PATCH, DELETE");
-  next();
-});
+
+const corsOptions = {
+  origin: (origin, callback) => {
+    if (!origin || origin === 'http://localhost:5173') {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  optionsSuccessStatus: 200,
+}
+
+app.use(cors(corsOptions));
 
 
 // Import routes modules
@@ -32,7 +35,7 @@ app.use("/api", usersRoutes);
 app.use("/api", studentsRoutes);
 app.use("/api", certificatesRoutes);
 app.use("/api", booksRoutes);
-app.use("/api", schoolRoutes);
+app.use("/api", jwtMiddleware, schoolRoutes);
 app.use("/api", jwtMiddleware, employeesRoutes);
 
 app.use((req, res, next) => {

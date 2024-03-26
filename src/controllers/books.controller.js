@@ -71,6 +71,7 @@ export const updateBook = async (req, res) => {
     res.send(error);
   }
 };
+
 export const deleteBook = async (req, res) => {
   try {
     const [result] = await pool.query("DELETE FROM book WHERE id = ? ", [
@@ -126,6 +127,7 @@ export const addMatters = async (req, res) => {
     res.status(500).json({ error });
   }
 };
+
 export const getBookMatters = async (req, res) => {
   try {
     const [rows] = await pool.query(

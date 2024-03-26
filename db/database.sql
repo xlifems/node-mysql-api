@@ -238,8 +238,16 @@ VALUES (1, 3, 'APROBO', "nivel alto");
 INSERT INTO schooldb.page_matter (page_id, matter_id, qualitative_note, quantitative_note)
 VALUES (1, 1, '', 10.0 ), (1, 2, '', 9.8 );
 
-INSERT INTO users (school_id, first_name, last_name, email, password, phone, address, role)
+INSERT INTO schooldb.users (school_id, first_name, last_name, email, password, phone, address, role)
 VALUES (1, 'John', 'Doe', 'johndoe@example.com', 'password123', '555-1234', '123 Main St', 'admin');
+
+-- Insert data into the page table 
+INSERT INTO schooldb.page (book_id, student_id, status, observation)
+VALUES (1, 1, 'APROBO', 'Nivel alto');
+
+-- Insert data into the page_matter table
+INSERT INTO schooldb.page_matter (page_id, matter_id, qualitative_note, quantitative_note)
+VALUES (1, 1, 'Excelente', 9.5), (1, 2, 'Muy bueno', 8.5);
 
 
 

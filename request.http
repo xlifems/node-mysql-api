@@ -3,7 +3,7 @@ GET http://localhost:3000/api/employees
 Authorization:Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NSwic2Nob29sX2lkIjoxLCJmaXJzdF9uYW1lIjoiRmVsaXggQWRyaWFuIiwibGFzdF9uYW1lIjoiTWFzYSBQaWNvIiwiZW1haWwiOiJhZHJpYW5tYXNhcGljb0BnbWFpbC5jb20iLCJwaG9uZSI6Iis1NzMwMTMxNzE5MDIiLCJhZGRyZXNzIjoiQ2wgNzAgSXRhZ3VpIiwicm9sZSI6ImFkbWluIiwiY3JlYXRlZF9hdCI6IjIwMjMtMDMtMDVUMjI6MDA6MTkuMDAwWiIsInVpZCI6InVLYkpzWUs5dTJoR1c4cXJXUHVDQVFNTUpPbTEiLCJpYXQiOjE2NzgwMzYzMTgsImV4cCI6MTY3ODAzOTkxOH0.8aRJaLEtVjwxpWFU4bv_gR7sFB4QYz2AfW-vU5_MXLM
 
 ###
-GET http://localhost:3000/api/students
+GET http://localhost:3000/api/books
 
 ###
 GET  http://localhost:3000/api/users
@@ -31,7 +31,7 @@ content-type: application/json
 
 ###
 GET  http://localhost:3000/api/users/check
-Authorization:Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NSwic2Nob29sX2lkIjoxLCJmaXJzdF9uYW1lIjoiRmVsaXggQWRyaWFuIiwibGFzdF9uYW1lIjoiTWFzYSBQaWNvIiwiZW1haWwiOiJhZHJpYW5tYXNhcGljb0BnbWFpbC5jb20iLCJwaG9uZSI6Iis1NzMwMTMxNzE5MDIiLCJhZGRyZXNzIjoiQ2wgNzAgSXRhZ3VpIiwicm9sZSI6ImFkbWluIiwiY3JlYXRlZF9hdCI6IjIwMjMtMDMtMDVUMjI6MDA6MTkuMDAwWiIsInVpZCI6InVLYkpzWUs5dTJoR1c4cXJXUHVDQVFNTUpPbTEiLCJpYXQiOjE2NzgwMzYzMTgsImV4cCI6MTY3ODAzOTkxOH0.8aRJaLEtVjwxpWFU4bv_gR7sFB4QYz2AfW-vU5_MXLM
+Authorization:Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwic2Nob29sX2lkIjoxLCJmaXJzdF9uYW1lIjoiRmVsaXggQWRyaWFuIiwibGFzdF9uYW1lIjoiTWFzYSBQaWNvIiwiZW1haWwiOiJhZHJpYW5tYXNhcGljb0BnbWFpbC5jb20iLCJwaG9uZSI6Iis1NzMwMTMxNzE5MDIiLCJhZGRyZXNzIjoiQ2wgNzAgSXRhZ3VpIiwicm9sZSI6ImFkbWluIiwidWlkIjoiZTdsYkM5UmxtellwNXVHWlREWDBFQlE1UmxtMSIsImNyZWF0ZWRfYXQiOiIyMDI0LTAzLTI1VDIxOjE1OjE4LjAwMFoiLCJpYXQiOjE3MTE0Mjc3OTIsImV4cCI6MTcxMTQzMTM5Mn0.sGOyEunUfIlsPwLp9oDmuyJZoF6VjvjHtBHb2aW_ntU
 
 ###
 POST   http://localhost:3000/api/students
@@ -39,10 +39,10 @@ content-type: application/json
 
 {
     "school_id": 1,
-    "first_name": "Etham",
-    "last_name": "Masa",
+    "first_name": "Gylmar Elias",
+    "last_name": "Castro Masa",
     "email": "ethammasa@example.com",
-    "phone": "555-8866",
+    "phone": "444-8866",
     "address": "759 Oak St.",
     "date_of_birth": "2000-12-17",
     "gender": "male"
@@ -64,8 +64,8 @@ content-type: application/json
 }
 ###
 
-POST http://localhost:3000/api/schools
-content-type: application/json
+GET http://localhost:3000/api/schools
+authorization:Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwic2Nob29sX2lkIjoxLCJmaXJzdF9uYW1lIjoiRmVsaXggQWRyaWFuIiwibGFzdF9uYW1lIjoiTWFzYSBQaWNvIiwiZW1haWwiOiJhZHJpYW5tYXNhcGljb0BnbWFpbC5jb20iLCJwaG9uZSI6Iis1NzMwMTMxNzE5MDIiLCJhZGRyZXNzIjoiQ2wgNzAgSXRhZ3VpIiwicm9sZSI6ImFkbWluIiwidWlkIjoiZTdsYkM5UmxtellwNXVHWlREWDBFQlE1UmxtMSIsImNyZWF0ZWRfYXQiOiIyMDI0LTAzLTI1VDIxOjE1OjE4LjAwMFoiLCJpYXQiOjE3MTEzODUwMDUsImV4cCI6MTcxMTM4ODYwNX0.m2Wb0Hh_I0Od1HQa676wJL_QZIJ1ypEYJn3vCA6NzLI
 
 {
     "name" : "Institucion Educativa Lacides C. Bersal" ,
@@ -81,13 +81,37 @@ content-type: application/json
 }
 ###
 
-POST  http://localhost:3000/api/books/matters
+GET   http://localhost:3000/api/books/1/matters
 content-type: application/json
 
 {
     "matters":[
-      { "book_id": 1, "name": "Matematicas", "hours": 3 },
-      { "book_id": 1, "name": "Espanol", "hours": 2 },
-      { "book_id": 1, "name": "Sociales", "hours": 3 }
+      { "book_id": 2, "name": "Matematicas", "hours": 3 },
+      { "book_id": 2, "name": "Espanol", "hours": 2 },
+      { "book_id": 2, "name": "Sociales", "hours": 3 },
+      { "book_id": 2, "name": "Ciencias", "hours": 2 },
+      { "book_id": 2, "name": "Ingles", "hours": 2 }
     ]
+}
+
+###
+GET http://localhost:3000/api/books
+content-type: application/json
+
+{
+    "school_id": 1,
+    "name": "SEXTO B",
+    "year": 2000,
+    "type": "quantitative"
+}
+
+###
+POST  http://localhost:3000/api/certificate
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwic2Nob29sX2lkIjoxLCJmaXJzdF9uYW1lIjoiRmVsaXggQWRyaWFuIiwibGFzdF9uYW1lIjoiTWFzYSBQaWNvIiwiZW1haWwiOiJhZHJpYW5tYXNhcGljb0BnbWFpbC5jb20iLCJwaG9uZSI6Iis1NzMwMTMxNzE5MDIiLCJhZGRyZXNzIjoiQ2wgNzAgSXRhZ3VpIiwicm9sZSI6ImFkbWluIiwidWlkIjoiZTdsYkM5UmxtellwNXVHWlREWDBFQlE1UmxtMSIsImNyZWF0ZWRfYXQiOiIyMDI0LTAzLTI1VDIxOjE1OjE4LjAwMFoiLCJpYXQiOjE3MTE0MjgwOTgsImV4cCI6MTcxMTQzMTY5OH0.zqd-tJ5HfHuZwQJ7n9ZBJ6gxtNhUj4ajt863TH1KFQM
+ 
+{
+    "book_id": 1,
+    "student_id": 1,
+    "status": "APROBADO",
+    "observation": "Falta de pago"
 }
