@@ -236,7 +236,8 @@ VALUES (1, 3, 'APROBO', "nivel alto");
 
 -- Insert data into the page_matter table
 INSERT INTO schooldb.page_matter (page_id, matter_id, qualitative_note, quantitative_note)
-VALUES (1, 1, '', 10.0 ), (1, 2, '', 9.8 );
+VALUES (1, 1, 'Excelente', 9.5), (1, 2, 'Muy bueno', 8.5);
+
 
 INSERT INTO schooldb.users (school_id, first_name, last_name, email, password, phone, address, role)
 VALUES (1, 'John', 'Doe', 'johndoe@example.com', 'password123', '555-1234', '123 Main St', 'admin');
@@ -269,7 +270,7 @@ JOIN student st ON c.school_id = st.school_id
 WHERE st.id = 1;
 
 
-SELECT pgm.id, s.id, s.first_name, s.last_name, pg.status, pgm.quantitative_note as note , mt.name, mt.hours, bk.year, bk.name
+SELECT pgm.id, s.id, s.first_name, s.last_name, pg.status, pgm.quantitative_note as note , mt.name as matter_name, mt.hours, bk.year, bk.name as book_name
 FROM schooldb.student s
 INNER JOIN schooldb.school sc ON s.school_id = sc.id
 INNER JOIN schooldb.book bk ON sc.id = bk.school_id
@@ -288,3 +289,19 @@ SELECT *
 FROM schooldb.book b 
 INNER JOIN schooldb.matter m ON b.id = m.book_id
 WHERE b.id = 1
+
+// Selecionar la pagina y las materias de un libro
+SELECT p.id, p.student_id, p.status, p.observation, m.name, m.hours
+FROM schooldb.page p
+INNER JOIN schooldb.page_matter pm ON p.id = pm.page_id
+INNER JOIN schooldb.matter m ON pm.matter_id = m.id
+WHERE p.book_id = 1;
+
+
+// Selecionar todo de matter
+SELECT p.id, p.student_id, p.status, p.observation
+FROM schooldb.page p
+INNER JOIN schooldb.book b ON b.id = p.book_id;
+
+
+SELECT * FROM page_matter;
