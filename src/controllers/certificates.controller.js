@@ -178,50 +178,59 @@ export const getCertificatePdf = async (req, res) => {
       // Ruta del archivo
       const filePath = "./archivo.pdf";
 
-      // Obtén la ruta del directorio donde se encuentra el script actual
-      //const fileurl = fileURLToPath(import.meta.url);
-      //const directorio = path.join(path.dirname(fileurl), filename);
-
       // Create a document
-      const doc = new PDFDocument();
+      const doc = new PDFDocument({ margin: 10, size: "A4" });
 
       // Pipe its output somewhere, like to a file or HTTP response
       // See below for browser usage
       const writeStream = fs.createWriteStream(filePath); // write to PDF
       doc.pipe(writeStream);
 
+      const { first_name, last_name } = rows[0];
+
       // Embed a font, set the font size, and render some text
-      doc.fontSize(25).text("Some text with an embedded font!", 100, 100);
-
-      // Add another page
       doc
-        .addPage()
+        //.font("fonts/PalatinoBold.ttf")
         .fontSize(25)
-        .text("Here is some vector graphics...", 100, 100);
+        .text(`${first_name} ${last_name} `, 100, 100);
 
-      // Draw a triangle
-      doc
-        .save()
-        .moveTo(100, 150)
-        .lineTo(100, 250)
-        .lineTo(200, 250)
-        .fill("#FF3300");
+      // -----------------------------------------------------------------------------------------------------
+      // Simple Table with Array
+      // -----------------------------------------------------------------------------------------------------
+      const table = {
+        // complex headers work with ROWS and DATAS
+        headers: [
+          {
+            label: "Asignatura",
+            property: "matter_name",
+            width: 100,
+            renderer: null,
+          },
+          {
+            label: "IH",
+            property: "hours",
+            width: 100,
+            renderer: (value) => `${Number(value)}`,
+          },
+          { label: "Nota", property: "nota", width: 100, renderer: null },
+        ],
+        // complex content
+        datas: rows.map((row) => {
+          return {
+            matter_name: row.matter_name,
+            hours: row.hours,
+            nota: { label: row.note, options: { fontSize: 12 } },
+          };
+        }),
 
-      // Apply some transforms and render an SVG path with the 'even-odd' fill rule
-      doc
-        .scale(0.6)
-        .translate(470, -380)
-        .path("M 250,75 L 323,301 131,161 369,161 177,301 z")
-        .fill("red", "even-odd")
-        .restore();
+        // simple content (works fine!)
+        // rows: [
+        // ["Jack", "32"], // row 1
+        // ["Maria", "30"], // row 2
+        //],
+      };
 
-      // Add some text with annotations
-      doc
-        .addPage()
-        .fillColor("blue")
-        .text("Here is a link!", 100, 100)
-        .underline(100, 100, 160, 27, { color: "#0000FF" })
-        .link(100, 100, 160, 27, "http://google.com/");
+      doc.table(table); // A4 595.28 x 841.89 (portrait) (about width sizes)
 
       // Finalize PDF file
       doc.end();
@@ -231,13 +240,11 @@ export const getCertificatePdf = async (req, res) => {
 
       writeStream.on("finish", () => {
         // Establecer encabezados de respuesta
-      
 
         res.download(
           filePath,
           "archivo.pdf", // Remember to include file extension
           (err) => {
-
             fs.unlink(filePath, (err) => {
               if (err) {
                 console.error("Error deleting PDF file:", err);
