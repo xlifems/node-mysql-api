@@ -10,6 +10,47 @@ export const getStudents = async (req, res) => {
   }
 };
 
+// get students pagination with limit and offset query parameters
+export const getStudentsPagination = async (req, res) => {
+  try {
+    // Extract page and quantity parameters from the request body
+    const page = parseInt(req.body.page) || 1;
+    const quantity = parseInt(req.body.quantity) || 10; // Default to 10 items per page
+
+    // Calculate offset based on the page and quantity
+    const offset = (page - 1) * quantity;
+
+    const [rows] = await pool.query("SELECT * FROM student LIMIT ?, ? ", [
+      offset,
+      quantity,
+    ]);
+
+    if (rows.length <= 0) {
+      res.status(400).json({ message: "student not found" });
+    }
+
+    // Fetch total count of records for pagination
+    const [response] = await pool.query(
+      "SELECT COUNT(*) AS total FROM student"
+    );
+
+    const total = response[0].total;
+    const totalPages = Math.ceil(total / quantity);
+
+    // Send the paginated data as JSON response
+    res.status(200).json({
+      page: page,
+      quantity: quantity,
+      total,
+      totalPages,
+      data: rows,
+    });
+  } catch (error) {
+    console.log(error);
+    res.send;
+  }
+};
+
 export const getStudent = async (req, res) => {
   try {
     const [rows] = await pool.query("SELECT * FROM student WHERE id = ? ", [
